@@ -1,5 +1,3 @@
-import itertools
-import math
 from wektory import Wektor
 G = 5.0
 dt = 1000
