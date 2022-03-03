@@ -1,5 +1,5 @@
 from wektory import Wektor
-G = 5.0
+G = 6.6743*10**(-11) #N*m^2/kg^2
 dt = 1000
 t = 0
 
@@ -51,8 +51,8 @@ class  Obiekt:
         other.predkosc -= dt * a_other
                 
 Uklad_Sloneczny = Uklad()
-slonce = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=5, pozycja=(0,0,0), predkosc=(0,0,0))
-ziemia = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=1, pozycja=(200,0,0), predkosc=(0,70,0))
-wenus = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=3, pozycja=(100,0,0), predkosc=(0,99,0))
+slonce = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=1.989*10**(30), pozycja=(0,0,0), predkosc=(0,0,0)) 
+ziemia = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=5,97*10**(24), pozycja=(147100000000,0,0), predkosc=(0,30300,0)) #dla wszystkich planet biorę peryhelium (w metrach)
+wenus = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=4.867*10**(24), pozycja=(107476002000,0,0), predkosc=(0,99,0))
 
 print(Uklad_Sloneczny.iloscObiektow)
