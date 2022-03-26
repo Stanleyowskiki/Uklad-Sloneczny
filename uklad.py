@@ -1,7 +1,7 @@
 from wektory import Wektor
 import matplotlib.pyplot as plt
 Gg = 6.6743*10**(-11) #N*m^2/kg^2
-dt = 900000
+dt = 120000
 t = 0
 
 class Uklad:
@@ -68,12 +68,20 @@ neptun = Obiekt(nazwa="Neptun",solar_system=Uklad_Sloneczny ,masa=102.409*10**(2
 print(f'Ilość obiektów w układzie: {Uklad_Sloneczny.iloscObiektow}')
 
 
-while t < 70000000:
+while t < 50000000:
     Uklad_Sloneczny.oblicz_wszystkie_sily()
     Uklad_Sloneczny.rusz_uklad()
-    for obiekty in Uklad_Sloneczny.tablicaObiektow:
-        print(f'{obiekty.nazwa}: {obiekty.pozycja}')
-        plt.scatter(obiekty.pozycja[0], obiekty.pozycja[1], s=5)
+    #for obiekty in Uklad_Sloneczny.tablicaObiektow:
+        #print(f'{obiekty.nazwa}: {obiekty.pozycja}')
+        #plt.scatter(obiekty.pozycja[0], obiekty.pozycja[1], s=5)
+    plt.scatter(slonce.pozycja[0], slonce.pozycja[1], s=1, color="orange")
+    plt.scatter(wenus.pozycja[0], wenus.pozycja[1], s=1, color="blue")
+    plt.scatter(ziemia.pozycja[0], ziemia.pozycja[1], s=1, color="green")
+    # plt.scatter(mars.pozycja[0], mars.pozycja[1], s=1, color="#88c999")
+    # plt.scatter(jowisz.pozycja[0], jowisz.pozycja[1], s=1, color='red')
+    # plt.scatter(saturn.pozycja[0], saturn.pozycja[1], s=1, color='black')
+    # plt.scatter(uran.pozycja[0], uran.pozycja[1], s=1, color='yellow')
+    #plt.scatter(neptun.pozycja[0], neptun.pozycja[1], s=1, color='pink')
     t += dt
 
 plt.title("Solar System", fontsize=19)
