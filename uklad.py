@@ -4,7 +4,7 @@ dt = 1000
 t = 0
 
 class Uklad:
-    def _init_(self, iloscObiektow):
+    def __init__(self, iloscObiektow):
         self.iloscObiektow = iloscObiektow
         self.tablicaObiektow = []
         
@@ -25,12 +25,12 @@ class Uklad:
                 
                 
 class  Obiekt:
-    def __init__(self, uklad_sl, masa,pozycja=(0, 0, 0),predkosc=(0, 0, 0)):
-        self.uklad_sl = uklad_sl
+    def __init__(self, solar_system, masa,pozycja=(0, 0, 0),predkosc=(0, 0, 0)):
+        self.solar_system = solar_system
         self.masa = masa
         self.pozycja = pozycja
         self.predkosc = Wektor(*predkosc)
-        self.uklad_sl.dodajObiekt(self)
+        self.solar_system.dodajObiekt(self)
         
     def rusz(self):
         self.pozycja = (
@@ -45,14 +45,18 @@ class  Obiekt:
         wartoscsily = (G * self.masa * other.masa) / (dlugoscr ** 2)
         sila = promien.wersor() * wartoscsily
         
-        a_self = sila / self.masa
-        self.predkosc += dt * a_self
-        a_other = sila / other.masa
-        other.predkosc -= dt * a_other
+        # a_self = sila / self.masa
+        # self.predkosc += dt * a_self
+        # a_other = sila / other.masa
+        # other.predkosc -= dt * a_other
+        odwroc = 1
+        for obiekt in self, other:
+            przysp = sila/ obiekt.masa
+            obiekt.predkosc += przysp * dt * odwroc
                 
-Uklad_Sloneczny = Uklad()
-slonce = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=1.989*10**(30), pozycja=(0,0,0), predkosc=(0,0,0)) 
-ziemia = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=5,97*10**(24), pozycja=(147100000000,0,0), predkosc=(0,30300,0)) #dla wszystkich planet biorę peryhelium (w metrach)
-wenus = Obiekt(uklad_sl=Uklad_Sloneczny ,masa=4.867*10**(24), pozycja=(107476002000,0,0), predkosc=(0,99,0))
+Uklad_Sloneczny = Uklad(0)
+slonce = Obiekt(solar_system=Uklad_Sloneczny ,masa=1.989*10**(30), pozycja=(0,0,0), predkosc=(0,0,0))
+ziemia = Obiekt(solar_system=Uklad_Sloneczny ,masa=5.97*10**(24), pozycja=(147100000000,0,0), predkosc=(0,30300,0)) #dla wszystkich planet biorę peryhelium (w metrach)
+wenus = Obiekt(solar_system=Uklad_Sloneczny ,masa=4.867*10**(24), pozycja=(107476002000,0,0), predkosc=(0,99,0))
 
 print(Uklad_Sloneczny.iloscObiektow)

@@ -1,6 +1,6 @@
 import math
 
-class wektor:
+class Wektor:
     def __init__(self, x=0, y=0, z=0):  #c++-konstr domyslny
         self.x = x
         self.y = y
@@ -20,32 +20,32 @@ class wektor:
             raise IndexError("Wektor powinien zawierac tylko trzy elementy")
 
     def __add__(self, other):  #przeciazenie operatora dodawania
-        return wektor(
+        return Wektor(
             self.x + other.x,
             self.y + other.y,
             self.z + other.z,)
     
     def __sub__(self, other):  #przeciazenie operatora odejmowania
-        return wektor(
+        return Wektor(
             self.x - other.x,
             self.y - other.y,
             self.z - other.z,)
 
     def __mul__(self, other):  #przeciazenie operatora mnozenia
-        if isinstance(other, wektor):  #iloczyn skalarny
+        if isinstance(other, Wektor):  #iloczyn skalarny
             return (
                     self.x * other.x
                     + self.y * other.y
                     + self.z * other.z)
         elif isinstance(other, (int, float)):  #mnozenie przez liczbe
-            return wektor(
+            return Wektor(
                 self.x * other,
                 self.y * other,
                 self.z * other,)
 
     def __truediv__(self, other): #przeciaenie operatora dzielenia (przez liczbe)
         if isinstance(other, (int, float)):
-            return wektor(
+            return Wektor(
                 self.x / other,
                 self.y / other,
                 self.z / other,)
@@ -55,7 +55,7 @@ class wektor:
     
     def wersor(self):
         dlugosc = self.dlugosc_w()
-        return wektor(
+        return Wektor(
             self.x / dlugosc,
             self.y / dlugosc,
             self.z / dlugosc,
