@@ -25,7 +25,8 @@ class Uklad:
                 
                 
 class  Obiekt:
-    def __init__(self, solar_system, masa,pozycja=(0, 0, 0),predkosc=(0, 0, 0)):
+    def __init__(self, nazwa,solar_system, masa,pozycja=(0, 0, 0),predkosc=(0, 0, 0)):
+        self.nazwa = nazwa
         self.solar_system = solar_system
         self.masa = masa
         self.pozycja = pozycja
@@ -55,8 +56,22 @@ class  Obiekt:
             obiekt.predkosc += przysp * dt * odwroc
                 
 Uklad_Sloneczny = Uklad(0)
-slonce = Obiekt(solar_system=Uklad_Sloneczny ,masa=1.989*10**(30), pozycja=(0,0,0), predkosc=(0,0,0))
-ziemia = Obiekt(solar_system=Uklad_Sloneczny ,masa=5.97*10**(24), pozycja=(147100000000,0,0), predkosc=(0,30300,0)) #dla wszystkich planet biorę peryhelium (w metrach)
-wenus = Obiekt(solar_system=Uklad_Sloneczny ,masa=4.867*10**(24), pozycja=(107476002000,0,0), predkosc=(0,99,0))
+#dla wszystkich planet biorę peryhelium (w metrach) https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
+slonce = Obiekt(nazwa="Slonce",solar_system=Uklad_Sloneczny ,masa=1.989*10**(30), pozycja=(0,0,0), predkosc=(0,0,0))
+merkury = Obiekt(nazwa="Merkury",solar_system=Uklad_Sloneczny ,masa=3.3011*10**(23), pozycja=(46000000000,0,0), predkosc=(0,58980,0))
+wenus = Obiekt(nazwa="Wenus",solar_system=Uklad_Sloneczny ,masa=4.867*10**(24), pozycja=(107476002000,0,0), predkosc=(0,35260,0))
+ziemia = Obiekt(nazwa="Ziemia",solar_system=Uklad_Sloneczny ,masa=5.97*10**(24), pozycja=(147100000000,0,0), predkosc=(0,30300,0))
+mars = Obiekt(nazwa="Mars",solar_system=Uklad_Sloneczny ,masa=0.64169*10**(24), pozycja=(206650000000,0,0), predkosc=(0,26500,0))
+jowisz = Obiekt(nazwa="Jowisz",solar_system=Uklad_Sloneczny ,masa=1.898*10**(27), pozycja=(740595000000,0,0), predkosc=(0,13720,0))
+saturn = Obiekt(nazwa="Saturn",solar_system=Uklad_Sloneczny ,masa=568.32*10**(24), pozycja=(1357554000000,0,0), predkosc=(0,10180,0))
+uran = Obiekt(nazwa="Uran",solar_system=Uklad_Sloneczny ,masa=86.811*10**(24), pozycja=(2732696000000,0,0), predkosc=(0,7110,0))
+neptun = Obiekt(nazwa="Neptun",solar_system=Uklad_Sloneczny ,masa=102.409*10**(24), pozycja=(4471050000000,0,0), predkosc=(0,5500,0))
 
-print(Uklad_Sloneczny.iloscObiektow)
+print(f'Ilość obiektów w układzie: {Uklad_Sloneczny.iloscObiektow}')
+
+while t < 100000:
+    Uklad_Sloneczny.oblicz_wszystkie_sily()
+    Uklad_Sloneczny.rusz_uklad()
+    for obiekty in Uklad_Sloneczny.tablicaObiektow:
+        print(f'{obiekty.nazwa}: {obiekty.pozycja}')
+    t += dt
