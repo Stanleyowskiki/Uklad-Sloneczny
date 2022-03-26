@@ -1,6 +1,7 @@
 from wektory import Wektor
-G = 6.6743*10**(-11) #N*m^2/kg^2
-dt = 1000
+import matplotlib.pyplot as plt
+Gg = 6.6743*10**(-11) #N*m^2/kg^2
+dt = 900000
 t = 0
 
 class Uklad:
@@ -43,17 +44,14 @@ class  Obiekt:
     def przys_grawitacyjne(self, other):
         promien = Wektor(*other.pozycja) - Wektor(*self.pozycja)
         dlugoscr = promien.dlugosc_w()
-        wartoscsily = (G * self.masa * other.masa) / (dlugoscr ** 2)
+        wartoscsily = (Gg * self.masa * other.masa) / (dlugoscr ** 2)
         sila = promien.wersor() * wartoscsily
-        
-        # a_self = sila / self.masa
-        # self.predkosc += dt * a_self
-        # a_other = sila / other.masa
-        # other.predkosc -= dt * a_other
+
         odwroc = 1
         for obiekt in self, other:
-            przysp = sila/ obiekt.masa
+            przysp = sila/(obiekt.masa)
             obiekt.predkosc += przysp * dt * odwroc
+            odwroc *= -1
                 
 Uklad_Sloneczny = Uklad(0)
 #dla wszystkich planet biorę peryhelium (w metrach) https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
@@ -69,9 +67,14 @@ neptun = Obiekt(nazwa="Neptun",solar_system=Uklad_Sloneczny ,masa=102.409*10**(2
 
 print(f'Ilość obiektów w układzie: {Uklad_Sloneczny.iloscObiektow}')
 
-while t < 100000:
+
+while t < 70000000:
     Uklad_Sloneczny.oblicz_wszystkie_sily()
     Uklad_Sloneczny.rusz_uklad()
     for obiekty in Uklad_Sloneczny.tablicaObiektow:
         print(f'{obiekty.nazwa}: {obiekty.pozycja}')
+        plt.scatter(obiekty.pozycja[0], obiekty.pozycja[1], s=5)
     t += dt
+
+plt.title("Solar System", fontsize=19)
+plt.show()
